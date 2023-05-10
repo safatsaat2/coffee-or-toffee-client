@@ -14,15 +14,29 @@ const AddCoffee = () => {
 
         const newCoffee = {name, quantity, supplier, details, taste, category, photo};
         console.log(newCoffee)
+        fetch('http://localhost:5000/coffee', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newCoffee)
+        })
+        .then(res => res.json())
+        .then(data => {console.log(data)
+        if(data.insertedId){
+            alert('User Added Successfully')
+        }
+        })
         form.reset()
     }
 
 
     return (
         <div className="bg-[#F4F3F0] p-24">
+            <h2 className="text-6xl font-bold"> Add Coffee</h2>
             <form onSubmit={handleAddCoffee}>
                 {/* div name & quantity row */}
-                <div className="flex ">
+                <div className="flex mb-4">
                     <div className="form-control w-1/2">
                         <label className="label">
                             <span className="label-text">Coffee Name</span>
@@ -41,7 +55,7 @@ const AddCoffee = () => {
                     </div>
                 </div>
                 {/* div supplier and taste row */}
-                <div className="flex">
+                <div className="flex mb-4">
                     <div className="form-control w-1/2">
                         <label className="label">
                             <span className="label-text">Supplier</span>
@@ -60,7 +74,7 @@ const AddCoffee = () => {
                     </div>
                 </div>
                 {/* div category and details row */}
-                <div className="flex">
+                <div className="flex mb-4">
                     <div className="form-control w-1/2">
                         <label className="label">
                             <span className="label-text">Category</span>
@@ -78,8 +92,8 @@ const AddCoffee = () => {
                         </label>
                     </div>
                 </div>
-                {/* div row */}
-                <div >
+                {/* div photo row */}
+                <div className="mb-4">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Photo Url</span>
@@ -90,7 +104,7 @@ const AddCoffee = () => {
                     </div>
                 </div>
 
-                <input type="submit" value="Add Coffee" className="btn btn-accent hover:rounded-none" />
+                <input type="submit" value="Add Coffee" className="btn btn-accent transition delay-150 duration-300 ease-in-out w-full" />
             </form>
         </div>
     );
